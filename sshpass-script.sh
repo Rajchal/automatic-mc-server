@@ -9,9 +9,11 @@ REMOTE_SERVER="your.backup.server.ip"
 REMOTE_PASSWORD="yourpassword"
 
 
-sshpass -p "$REMOTE_PASSWORD" tar -czvf "$WORLD_FILE" "$BACKUP_TAR"
+# Create a tarball of the world file
+sshpass -p "$REMOTE_PASSWORD" tar -czvf "$BACKUP_TAR" "$WORLD_FILE"
 
-sshpass -p "$REMOTE_PASSWORD" rsync -avz "$REMOTE_USER"@"$REMOTE_SERVER":"BACKUP_TAR" "/minecraft/backup"
+# Sync the tarball to the remote server
+sshpass -p "$REMOTE_PASSWORD" rsync -avz "$BACKUP_TAR" "$REMOTE_USER"@"$REMOTE_SERVER":"/minecraft/backup"
 
 
 
